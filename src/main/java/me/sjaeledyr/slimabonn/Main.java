@@ -15,6 +15,6 @@ public final class Main extends JavaPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
-        System.out.println("Slimabonn b Sjaeledyr has been unloaded!");
+        System.out.println("Slimabonn by Sjaeledyr has been unloaded!");
     }
 }
