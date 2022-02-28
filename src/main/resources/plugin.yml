@@ -1,0 +1,4 @@
+name: Slimabonn
+version: '${project.version}'
+main: me.sjaeledyr.slimabonn.Slimabonn
+api-version: 1.18
