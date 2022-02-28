@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.ItemStack;
 
 public class EventListener implements Listener {
     private Main main = Main.getPlugin(Main.class);
@@ -27,6 +28,8 @@ public class EventListener implements Listener {
         }
         if(magma == 1 && ice == 1){
             p.sendMessage("You have turned the magma cream into a slimeball!");
+            int emptySlot = p.getInventory().firstEmpty();
+            p.getInventory().setItem(emptySlot, new ItemStack(Material.SLIME_BALL));
         }
     }
 }
