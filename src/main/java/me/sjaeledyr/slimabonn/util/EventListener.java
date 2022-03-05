@@ -11,23 +11,30 @@ import org.bukkit.inventory.ItemStack;
 
 public class EventListener implements Listener {
     private Main main = Main.getPlugin(Main.class);
+    int magma = 0;
+    int ice = 0;
+    boolean isCauldron = false;
 
     @EventHandler
     public void onInteract(PlayerInteractEvent e) {
         Player p = e.getPlayer();
         ItemStack inHand = p.getInventory().getItemInMainHand();
         Block block = e.getClickedBlock();
-        int magma = 0;
-        int ice = 0;
+        if(block.getType() == Material.CAULDRON || block.getType() == Material.WATER_CAULDRON){
+            isCauldron = true;
+        }
+
         if(inHand.getType() == Material.MAGMA_CREAM
-           && block.getType() == Material.CAULDRON){
-            p.getInventory().setItemInMainHand(new ItemStack((Material.AIR)));
+           && isCauldron){
+            p.getInventory().setItemInMainHand(null);
+            p.updateInventory();
             p.sendMessage("You place the magma in the cauldron.");
             magma = 1;
         }
         if(inHand.getType() == Material.ICE
-           && block.getType() == Material.CAULDRON ){
-            p.getInventory().setItemInMainHand(new ItemStack((Material.AIR)));
+           && isCauldron){
+            p.getInventory().remove(Material.ICE);
+            p.updateInventory();
             p.sendMessage("You place the ice into the cauldron.");
             ice = 1;
         }
@@ -35,6 +42,9 @@ public class EventListener implements Listener {
             p.sendMessage("You have turned the magma cream into a slimeball!");
             int emptySlot = p.getInventory().firstEmpty();
             p.getInventory().setItem(emptySlot, new ItemStack(Material.SLIME_BALL));
+            magma = 0;
+            ice = 0;
+            isCauldron = false;
         }
     }
 }
